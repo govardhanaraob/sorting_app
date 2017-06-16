@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Sorting Solutions</title>
+<style>
+body {
+    background-color: linen;
+	text-align:center;
+	padding-top:5%;
+}
+
+h1 {
+    color: maroon;
+} 
+table{
+	margin-left: 33%;
+}
+table th,td{
+	padding-left:27px;
+	border: 1px solid #9E9E9E;
+	}
+.sortedHistory{
+    margin-left: 22% !important;
+   
+}	
+.sortList{
+    padding-bottom: 10px;
+}
+.topMargin{
+          margin-top: 5%;
+}	
+</style></head>
+
+<script type="text/javascript" src="lib/angularJs/angular.js"></script>
+<script type="text/javascript" src="lib/angularJs/lodash.js"></script>
+<script type="text/javascript" src="lib/angularJs/restangular.js"></script>
+	<script type="text/javascript" src="lib/angularJs/angular-route.js"></script>
+	<script src="lib/angularJs/angular-messages.min.js"></script>
+
+<script type="text/javascript" src="Sorting/app.js"></script>
+<script type="text/javascript" src="Sorting/sortingController.js" ></script>
+<script type="text/javascript" src="Sorting/sortingService.js" ></script>
+
+
+
+<body ng-app="sortingApp" ng-controller="createSortingController as sorting" ng-init="getSortedHistory();"> 
+
+<h1>Sorting</h1>
+<form ng-submit="sort();" >
+
+<div class="sortList" ng-repeat="value in sorting.sortingObject track by $index"><label >Value{{$index+1}} : </label><input type="number" ng-model="sorting.sortingObject[$index]"><input type="button"  ng-if="sorting.sortingObject.length>1" value="Remove" ng-click="removeEntry($index)"><br></div>
+<input type="button" value="Add"  ng-click="addEntry()">
+<input type="submit" value="Sort"/>
+<input type="reset" value="Clear" />
+<input type="button" value="Reset" ng-click="reload()"/>
+<div class="topMargin">
+<span><h1>Result</h1></span>
+<table>
+<tr>
+<th>Output</th>
+<th>Time(micro sec)</th>
+<th>Interchanged Positions</th>
+</tr>
+<tr>
+
+<td ng-show="true">{{sorting.aftersort}}
+<div >
+    <div ng-repeat="bit in sorting.aftersort track by $index" >
+     <p ng-bind-html="bit"></p>
+ </div>
+</td>
+
+<td ng-show="true">
+<div>{{sorting.executionTime}}</div></td>
+<td ng-show="true">
+<div>{{sorting.interchangespositions}}</div></td>
+
+</tr>
+</table>
+</div>
+<div class="topMargin">
+<span><h1>Result History</h1></span>
+<table class="sortedHistory">
+     <tr>
+     <th>Id</th>
+     <th>Input List</th>
+     <th>Sorted List</th>
+     <th>Execution Time(micro sec)</th> 
+     <th>Interchanged Positions</th>
+     </tr>
+     <tr ng-repeat="bit in sortHistory track by $index" >
+     <td>{{bit.id}}</td>
+     <td>{{bit.listOFItems}}</td>
+     <td>{{bit.aftersortitems}}</td>
+     <td>{{bit.executionTime}}</td>
+     <td>{{bit.interchangespositions}}</td>
+     </tr>
+ </table>
+ </div>
+
+</form>
+
+</body>
+</html>
